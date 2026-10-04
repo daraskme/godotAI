@@ -301,6 +301,21 @@ void EditorLog::_set_dock_tab_icon(Ref<Texture2D> p_icon) {
 	set_force_show_icon(p_icon.is_valid());
 }
 
+Array EditorLog::get_recent_messages(int p_max) const {
+	static const char *type_names[] = { "std", "error", "std_rich", "warning", "editor" };
+	Array result;
+	const int start = MAX(0, messages.size() - MAX(p_max, 0));
+	for (int i = start; i < messages.size(); i++) {
+		const LogMessage &msg = messages[i];
+		Dictionary entry;
+		entry["text"] = msg.text;
+		entry["type"] = type_names[CLAMP((int)msg.type, 0, 4)];
+		entry["count"] = msg.count;
+		result.push_back(entry);
+	}
+	return result;
+}
+
 void EditorLog::register_undo_redo(UndoRedo *p_undo_redo) {
 	p_undo_redo->set_commit_notify_callback(_undo_redo_cbk, this);
 }

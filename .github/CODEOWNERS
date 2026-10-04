@@ -95,6 +95,7 @@
 /modules/vorbis/doc_classes/                  @godotengine/audio @godotengine/documentation
 
 ## Import
+/modules/ai_bridge/                            @daraskme
 /modules/astcenc/                             @godotengine/asset-pipeline
 /modules/basis_universal/                     @godotengine/asset-pipeline
 /modules/bcdec/                               @godotengine/asset-pipeline

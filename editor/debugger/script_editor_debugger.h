@@ -98,6 +98,7 @@ private:
 
 	VBoxContainer *errors_tab = nullptr;
 	Tree *error_tree = nullptr;
+	Array runtime_errors;
 	Button *expand_all_button = nullptr;
 	Button *collapse_all_button = nullptr;
 	Button *clear_button = nullptr;
@@ -340,6 +341,9 @@ public:
 	void set_move_to_foreground(const bool &p_move_to_foreground);
 
 	int get_error_count() const { return error_count; }
+	// Structured copy of the errors/warnings shown in the Errors tab (for tooling such as the AI bridge).
+	Array get_runtime_errors() const { return runtime_errors; }
+	void clear_errors_list() { _clear_errors_list(); }
 	int get_warning_count() const { return warning_count; }
 	String get_stack_script_file() const;
 	int get_stack_script_line() const;
