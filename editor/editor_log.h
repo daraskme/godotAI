@@ -180,6 +180,8 @@ protected:
 
 public:
 	void add_message(const String &p_msg, MessageType p_type = MSG_TYPE_STD);
+	// Returns up to p_max most recent messages as Dictionaries ({ "text", "type", "count" }).
+	Array get_recent_messages(int p_max = 100) const;
 	void register_undo_redo(UndoRedo *p_undo_redo);
 	void deinit();
 

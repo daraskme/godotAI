@@ -644,6 +644,25 @@ void ScriptEditorDebugger::_msg_error(uint64_t p_thread_id, const Array &p_data)
 	DebuggerMarshalls::OutputError oe;
 	ERR_FAIL_COND_MSG(oe.deserialize(p_data) == false, "Failed to deserialize error message");
 
+	{
+		Dictionary entry;
+		entry["warning"] = oe.warning;
+		entry["error"] = oe.error;
+		entry["description"] = oe.error_descr;
+		entry["source_file"] = oe.source_file;
+		entry["source_line"] = oe.source_line;
+		entry["source_func"] = oe.source_func;
+		Array stack;
+		for (const ScriptLanguage::StackInfo &frame : oe.callstack) {
+			stack.push_back(vformat("%s:%d in %s()", frame.file, frame.line, frame.func));
+		}
+		entry["callstack"] = stack;
+		if (runtime_errors.size() >= 500) {
+			runtime_errors.remove_at(0);
+		}
+		runtime_errors.push_back(entry);
+	}
+
 	// Format time.
 	Array time_vals = { oe.hr, oe.min, oe.sec, oe.msec };
 	bool e;
@@ -1924,6 +1943,7 @@ void ScriptEditorDebugger::_vmem_item_menu_id_pressed(int p_option) {
 
 void ScriptEditorDebugger::_clear_errors_list() {
 	error_tree->clear();
+	runtime_errors.clear();
 	error_count = 0;
 	warning_count = 0;
 	emit_signal(SNAME("errors_cleared"));

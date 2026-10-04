@@ -1,3 +1,18 @@
+# GodotAI
+
+**GodotAI** は [Godot Engine](https://github.com/godotengine/godot) のフォークです。人間は今まで通り GUI エディタで編集でき、
+同時に AI エージェント（Claude Code / Codex / Devin など）が同じエディタを MCP 経由で操作できる、
+「人間と AI の共同編集」「バイブコーディング」向けのゲームエンジンを目指しています。
+
+- **エディタ内蔵 MCP サーバー**（[modules/ai_bridge](modules/ai_bridge/README.md)）: シーンツリー取得、ノード追加・削除・プロパティ変更、
+  スクリプト作成とエラー検出、ゲーム実行、実行時エラー（ファイル:行・コールスタック）取得、スクリーンショット、API リファレンス参照。
+- **AI の操作はすべて Undo 履歴に乗る**: 人間は Ctrl+Z で AI の変更を戻せる。AI ドックで操作ログを確認できる。
+- 接続: `claude mcp add --transport http godot http://127.0.0.1:6010/mcp`
+
+開発ガイド: [AGENTS.md](AGENTS.md)
+
+---
+
 # Godot Engine
 
 <p align="center">
