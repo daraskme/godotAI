@@ -192,9 +192,9 @@ void AIBridgePlugin::_start() {
 	_stop();
 	bind_host = EDITOR_GET("ai_bridge/bind_host");
 	port = EDITOR_GET("ai_bridge/port");
-	const char *env_port = getenv("GODOTAI_MCP_PORT");
-	if (env_port && String(env_port).is_valid_int()) {
-		port = String(env_port).to_int();
+	const String env_port = OS::get_singleton()->get_environment("GODOTAI_MCP_PORT");
+	if (env_port.is_valid_int()) {
+		port = env_port.to_int();
 	}
 	server.instantiate();
 	const String url = vformat("http://%s:%d/mcp", bind_host, port);
